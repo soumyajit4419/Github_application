@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<head>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+    <!-- for icons font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!--external css files-->
+     <link rel="stylesheet" href="css/stylesheet.css">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+
+    <title>GIT HUB APPLICATION </title>
+
+</head>
+
+<body>
+
+    <div class="container-fluid jumbotron text-center" style="background-color: rgb(102, 15, 102);color:whitesmoke;font-family:serif">
+        <br>
+        <h1>GIT HUB APPLICATION</h1>
+      <br>
+    </div>
+    <div class="container-fluid">
+    <div class="container">
+        
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-6 text-center">
+                    <div class="form-group">
+                            <label for="usr" style="font-family: Verdana, Geneva, Tahoma, sans-serif" >ENTER YOUR USER NAME:</label>
+                            <input type="text" class="form-control" id="usr" placeholder="GITHUB USERNAME" >
+                            <br>
+                            <button class="btn  btn-danger" onclick="loadDoc()">GET DATA </button>
+                    </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-md-4">
+                    <div class="card border-0" >
+                            <div class="card-body " id="bdr" >
+                                       <img class="card-img-top" id="img"  style="width:100%">
+                                       <br><br>
+                                        <h4 class="card-title text-center" id="usnm"></h4>
+                                        <p class="card-text" id="dtl"></p>
+                                    
+                             </div>
+                            
+                    </div>
+            </div>
+         
+        
+            <div class="col-md-8 text-center">
+                <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-3 text-center">
+                        <h5 id="hd1" style="font-family: serif;"></h5>
+                        <p id="followers"></p> 
+                </div> &nbsp
+                <div class="col-md-3 text-center">
+                        <h5 id="hd2" style="font-family: serif;"></h5>
+                        <p id="following"></p> 
+                </div> &nbsp
+                <div class="col-md-3 text-center">
+                        <h5 id="hd3" style="font-family: serif;"></h5>
+                        <p id="repos"></p> 
+                </div>
+               </div>
+                <br><br><br>
+
+                <div class="row">
+                
+                 <div class="d-flex flex-wrap align-content-start" id="mycard">
+                     
+                </div>
+              
+             </div>
+      </div>
+      <br><br>
+        </div>
+    </div>
+    
+</body>
+
+
+
+
+<script>
+  
+
+        function loadDoc() 
+        {
+        
+         
+          
+        input=document.getElementById("usr").value;
+           // general detail
+          var xhttp = new XMLHttpRequest();
+         
+          xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+             var obj=JSON.parse(this.responseText);
+             document.getElementById("bdr").classList.add("border");
+             document.getElementById("bdr").classList.add("border-success");
+             document.getElementById("usnm").innerHTML=obj.login;
+             document.getElementById("dtl").innerHTML=obj.bio;
+             document.getElementById("img").src=obj.avatar_url;
+             document.getElementById("followers").innerHTML=obj.followers;
+             document.getElementById("following").innerHTML=obj.following;
+             document.getElementById("repos").innerHTML=obj.public_repos;
+             document.getElementById("hd1").innerHTML="FOLLOWERS";
+             document.getElementById("hd2").innerHTML="FOLLOWING";
+             document.getElementById("hd3").innerHTML="REPOSITORIES";
+            
+             console.log(JSON.parse(this.responseText));
+            }
+        
+            else if(this.readyState == 4 &&this.status==404){alert('INVALID USER NAME');}
+          };
+          xhttp.open("GET", "https://api.github.com/users/"+input, true);
+          xhttp.send();
+        
+
+
+        // repos detail
+          var xhttp1 = new XMLHttpRequest();
+        
+         xhttp1.onreadystatechange = function() {
+           if (this.readyState == 4 && this.status == 200) {
+             var obj1=JSON.parse(this.responseText);
+             var i;
+    
+    for(i in obj1)
+     {
+        var div=document.createElement("div");
+        div.classList.add("p-2");
+        div.classList.add("border");
+         var p=document.createElement("p");
+         p.classList.add("card-text");
+         p.classList.add("border");
+         var a=document.createElement("a");
+         a.href=obj1[i].svn_url;
+         a.innerHTML=obj1[i].name;
+         a.target="_blank";
+         p.appendChild(a);
+         div.appendChild(p);
+         document.getElementById("mycard").appendChild(div);
+        
+     }
+             console.log(JSON.parse(this.responseText));
+           }
+        
+           };
+        
+         xhttp1.open("GET", "https://api.github.com/users/"+input+"/repos", true);
+         xhttp1.send();
+        
+        }
+        
+        
+        </script>
