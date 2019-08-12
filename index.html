@@ -30,9 +30,9 @@
     <div class="container-fluid jumbotron text-center" style="background-color: rgb(102, 15, 102);color:whitesmoke;font-family:serif">
         <br>
         <h1>GIT HUB APPLICATION</h1>
-      <br>
-    </div>
-    <div class="container-fluid">
+        <br>
+ </div>
+    <div class="container-fluid ">
     <div class="container">
         
         <div class="row">
@@ -81,15 +81,17 @@
                 <br><br><br>
 
                 <div class="row">
-                
-                 <div class="d-flex flex-wrap align-content-start" id="mycard">
-                     
+                 <div class="col-md-1"></div>
+                 <div class="col-md-11">
+                  <h3 id="mycardhead" class="text-center" style="font-family: sans-serif;"></h3><br>      
+                 <div class="d-flex flex-wrap align-content-center text-center" id="mycard"></div>
                 </div>
-              
              </div>
       </div>
       <br><br>
         </div>
+    </div>
+    <br><br>
     </div>
     
 </body>
@@ -103,7 +105,11 @@
         function loadDoc() 
         {
         
-         
+        document.getElementById("mycard").innerHTML="";
+        document.getElementById("hd1").innerHTML="";
+        document.getElementById("hd2").innerHTML="";
+        document.getElementById("hd3").innerHTML="";
+        document.getElementById("mycardhead").innerHTML="";
           
         input=document.getElementById("usr").value;
            // general detail
@@ -113,7 +119,7 @@
             if (this.readyState == 4 && this.status == 200) {
              var obj=JSON.parse(this.responseText);
              document.getElementById("bdr").classList.add("border");
-             document.getElementById("bdr").classList.add("border-success");
+             document.getElementById("bdr").classList.add("border-primary");
              document.getElementById("usnm").innerHTML=obj.login;
              document.getElementById("dtl").innerHTML=obj.bio;
              document.getElementById("img").src=obj.avatar_url;
@@ -141,15 +147,15 @@
            if (this.readyState == 4 && this.status == 200) {
              var obj1=JSON.parse(this.responseText);
              var i;
-    
+       document.getElementById("mycardhead").innerHTML="USER REPOSITORY";
     for(i in obj1)
      {
         var div=document.createElement("div");
         div.classList.add("p-2");
         div.classList.add("border");
+        div.classList.add("border-primary");
          var p=document.createElement("p");
          p.classList.add("card-text");
-         p.classList.add("border");
          var a=document.createElement("a");
          a.href=obj1[i].svn_url;
          a.innerHTML=obj1[i].name;
