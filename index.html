@@ -38,8 +38,8 @@
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 text-center">
-                    <div class="form-group">
-                            <label for="usr" style="font-family: Verdana, Geneva, Tahoma, sans-serif" >ENTER YOUR USER NAME:</label>
+                    <div class="form-group" >
+                            <label for="usr" style="font-family: Verdana, Geneva, Tahoma, sans-serif;" >ENTER YOUR USER NAME:</label>
                             <input type="text" class="form-control" id="usr" placeholder="GITHUB USERNAME" >
                             <br>
                             <button class="btn  btn-danger" onclick="loadDoc()">GET DATA </button>
@@ -104,12 +104,18 @@
 
         function loadDoc() 
         {
-        
+        document.getElementById("bdr").style.border="";
+        document.getElementById("usnm").innerHTML="";
+        document.getElementById("dtl").innerHTML="";
+        document.getElementById("img").src="";
         document.getElementById("mycard").innerHTML="";
         document.getElementById("hd1").innerHTML="";
         document.getElementById("hd2").innerHTML="";
         document.getElementById("hd3").innerHTML="";
         document.getElementById("mycardhead").innerHTML="";
+        document.getElementById("followers").innerHTML="";
+        document.getElementById("following").innerHTML="";
+        document.getElementById("repos").innerHTML="";
           
         input=document.getElementById("usr").value;
            // general detail
@@ -118,8 +124,7 @@
           xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
              var obj=JSON.parse(this.responseText);
-             document.getElementById("bdr").classList.add("border");
-             document.getElementById("bdr").classList.add("border-primary");
+             document.getElementById("bdr").style.border="solid";
              document.getElementById("usnm").innerHTML=obj.login;
              document.getElementById("dtl").innerHTML=obj.bio;
              document.getElementById("img").src=obj.avatar_url;
@@ -133,7 +138,10 @@
              console.log(JSON.parse(this.responseText));
             }
         
-            else if(this.readyState == 4 &&this.status==404){alert('INVALID USER NAME');}
+            else if(this.readyState == 4 &&this.status==404)
+            {
+            alert('INVALID USER NAME');
+            }
           };
           xhttp.open("GET", "https://api.github.com/users/"+input, true);
           xhttp.send();
