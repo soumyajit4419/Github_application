@@ -22,6 +22,9 @@
     
 
     <title>GIT HUB APPLICATION </title>
+    <style>
+          
+    </style>
 
 </head>
 
@@ -32,7 +35,7 @@
         <h1>GIT HUB APPLICATION</h1>
         <br>
  </div>
-    <div class="container-fluid ">
+    <div class="container-fluid " >
     <div class="container">
         
         <div class="row">
@@ -55,8 +58,8 @@
                             <div class="card-body " id="bdr" >
                                        <img class="card-img-top" id="img"  style="width:100%">
                                        <br><br>
-                                        <h4 class="card-title text-center" id="usnm"></h4>
-                                        <p class="card-text" id="dtl"></p>
+                                        <h3 class="card-title text-center" id="usnm" style="font-family: sans-serif"></h3>
+                                        <p class="card-text text-center" id="dtl" style="font-family: cursive"></p>
                                     
                              </div>
                             
@@ -86,7 +89,7 @@
                  <div class="col-md-1"></div>
                  <div class="col-md-11">
                   <h3 id="mycardhead" class="text-center" style="font-family: sans-serif;"></h3><br>      
-                 <div class="d-flex flex-wrap align-content-center text-center" id="mycard"></div>
+                 <div class="d-flex flex-wrap align-content-center text-center" id="mycard" style="font-family: Verdana, Geneva, Tahoma, sans-serif"></div>
                 </div>
              </div>
       </div>
@@ -127,7 +130,7 @@
             if (this.readyState == 4 && this.status == 200) {
              var obj=JSON.parse(this.responseText);
              document.getElementById("bdr").style.border="solid";
-             document.getElementById("usnm").innerHTML=obj.login;
+             document.getElementById("usnm").innerHTML=obj.name;
              document.getElementById("dtl").innerHTML=obj.bio;
              document.getElementById("img").src=obj.avatar_url;
              document.getElementById("followers").innerHTML=obj.followers;
@@ -164,16 +167,17 @@
         div.classList.add("p-2");
         div.classList.add("border");
         div.classList.add("border-primary");
-         var p=document.createElement("p");
-         p.classList.add("card-text");
+         
          var a=document.createElement("a");
          a.href=obj1[i].svn_url;
-         a.innerHTML=obj1[i].name;
+         a.innerHTML='&nbsp'+obj1[i].name+'&nbsp &nbsp';
          a.target="_blank";
-         p.appendChild(a);
+         div.appendChild(a);
+         var p=document.createElement("p");
+         p.innerHTML=obj1[i].language;
          div.appendChild(p);
          document.getElementById("mycard").appendChild(div);
-        
+      
      }
              console.log(JSON.parse(this.responseText));
            }
